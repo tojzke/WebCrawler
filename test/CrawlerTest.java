@@ -1,5 +1,5 @@
-import common.WebCrawlerStage1Test;
+import common.WebCrawlerStage3Test;
 
-public class CrawlerTest extends WebCrawlerStage1Test {
+public class CrawlerTest extends WebCrawlerStage3Test {
 
 }
