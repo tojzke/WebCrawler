@@ -2,6 +2,7 @@ package crawler.panels.main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 
 public class TitleTable extends JTable {
 
@@ -21,6 +22,8 @@ public class TitleTable extends JTable {
 
     public void updateTableData(String[][] data) {
         tableModel.setDataVector(data, columnNames);
+        System.out.println("Updated table:");
+        System.out.println(Arrays.deepToString(data));
     }
 
 }

@@ -55,11 +55,13 @@ public class ParseButton extends JButton {
                 }
 
                 final String siteText = stringBuilder.toString();
-                titleTextLabel.setText(htmlParser.parseTitle(siteText));
-                titleTable.updateTableData(htmlParser.parseLinks(url, siteText));
+                final String title = htmlParser.parseTitle(siteText);
+                titleTextLabel.setText(title);
+                titleTable.updateTableData(htmlParser.parseLinks(url, title, siteText));
 
             } catch (IOException e) {
                 System.out.println("Can't read from url");
+
                 e.printStackTrace();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
