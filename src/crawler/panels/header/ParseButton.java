@@ -1,8 +1,11 @@
 package crawler.panels.header;
 
 import crawler.panels.main.TextArea;
+import crawler.panels.main.TitleTable;
+import crawler.util.HtmlParser;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,27 +14,27 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import static crawler.util.HtmlParser.parseTitle;
-
 public class ParseButton extends JButton {
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
 
     private final String buttonName = "RunButton";
-    private final String buttonText = "Get text!";
+    private final String buttonText = "Parse";
 
     private TextField textField;
-    private TextArea textArea;
+    private TitleTable titleTable;
     private TitleTextLabel titleTextLabel;
+    private HtmlParser htmlParser;
 
-    public ParseButton(TextField textField, TextArea textArea, TitleTextLabel titleTextLabel) {
+    public ParseButton(TextField textField, TitleTextLabel titleTextLabel, TitleTable titleTable, HtmlParser htmlParser) {
         this.setName(buttonName);
         this.setText(buttonText);
 
         this.textField = textField;
-        this.textArea = textArea;
+        this.titleTable = titleTable;
         this.titleTextLabel = titleTextLabel;
+        this.htmlParser = htmlParser;
         this.setPreferredSize(new Dimension(100, 30));
         this.addActionListener(actionEvent -> {
 
@@ -48,8 +51,9 @@ public class ParseButton extends JButton {
                 }
 
                 final String siteText = stringBuilder.toString();
-                textArea.setText(siteText);
-                titleTextLabel.setText(parseTitle(siteText));
+                titleTextLabel.setText(htmlParser.parseTitle(siteText));
+                titleTable.updateTableData(htmlParser.parseLinks(url, siteText));
+
             } catch (IOException e) {
                 System.out.println("Can't read from url");
                 e.printStackTrace();
