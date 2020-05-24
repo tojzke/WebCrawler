@@ -1,7 +1,8 @@
-package crawler.panels.main;
+package crawler.panels;
 
 
 import crawler.panels.header.HeaderPanel;
+import crawler.panels.result.TitleTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +10,10 @@ import java.awt.*;
 public class MainPanel extends JPanel {
 
 
-    public MainPanel(HeaderPanel headerPanel, TitleTable titleTable) {
+    public MainPanel(JPanel headerPanel, JPanel resultPanel) {
         this.setLayout(new BorderLayout(10, 10));
         this.add(headerPanel, BorderLayout.PAGE_START);
-        this.add(new JScrollPane(titleTable), BorderLayout.CENTER);
+        this.add(resultPanel, BorderLayout.CENTER);
         this.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
 

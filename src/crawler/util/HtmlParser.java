@@ -50,6 +50,7 @@ public class HtmlParser {
                 linkHref = proccessLink(linkHref, baseUrl);
                 var linkTitle = link.attr("title");
                 var linkAndTitle = List.of(linkHref, parseTitleInUrl(linkHref));
+//                var linkAndTitle = List.of(linkHref, linkTitle);
                 linksAndTitles.add(linkAndTitle);
             } catch (Exception e) {
                 System.out.println("Not valid ref:" + linkHref);
@@ -78,15 +79,15 @@ public class HtmlParser {
 
     private String proccessLink(String linkHref, String baseUrl) throws Exception {
 
-        String resultedLink;
+        String resultedLink = linkHref;
 
         if (linkHref.startsWith("http://") || linkHref.startsWith("https://")) {
             resultedLink = linkHref;
+        } else if (linkHref.startsWith("//")){ // without protocol
+            resultedLink = "https:" + linkHref;
         } else if (relativePattern.matcher(linkHref).matches()) { // relative link
             var cutTo = baseUrl.lastIndexOf("/") + 1;
             resultedLink = baseUrl.substring(0, cutTo) + linkHref;
-        } else { // without protocol
-            resultedLink = "https:" + linkHref;
         }
         if (checkLink(resultedLink)) {
             return resultedLink;

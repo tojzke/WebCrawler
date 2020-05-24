@@ -1,13 +1,11 @@
 package crawler.panels;
 
-import crawler.panels.main.TextArea;
 import crawler.panels.header.*;
-import crawler.panels.main.MainPanel;
-import crawler.panels.main.TitleTable;
+import crawler.panels.result.*;
+import crawler.util.FileExporter;
 import crawler.util.HtmlParser;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class SceneBuilder {
 
@@ -20,11 +18,18 @@ public class SceneBuilder {
         var titleTextLabel = new TitleTextLabel();
         var titleTable = new TitleTable();
 
+        JLabel exportLabel = new ExportLabel();
+        JTextField exportTextField = new ExportTextField();
+        JButton exportButton = new ExportButton(exportTextField, titleTable, new FileExporter());
+
         var button = new ParseButton(textField, titleTextLabel, titleTable, new HtmlParser());
         var headerBottomPanel = new HeaderBottomPanel(titleLabel, titleTextLabel);
         var headerPanel = new HeaderPanel(textField, urlLabel, button, headerBottomPanel);
+        JPanel resultBottomPanel = new ResultBottomPanel(exportLabel, exportTextField, exportButton);
+        JPanel resultPanel = new ResultPanel(titleTable, resultBottomPanel);
 
-        return new MainPanel(headerPanel, titleTable);
+
+        return new MainPanel(headerPanel, resultPanel);
     }
 
 }

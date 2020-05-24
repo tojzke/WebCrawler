@@ -1,11 +1,9 @@
 package crawler.panels.header;
 
-import crawler.panels.main.TextArea;
-import crawler.panels.main.TitleTable;
+import crawler.panels.result.TitleTable;
 import crawler.util.HtmlParser;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
