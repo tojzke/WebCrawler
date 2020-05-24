@@ -22,12 +22,12 @@ public class ParseButton extends JButton {
     private final String buttonName = "RunButton";
     private final String buttonText = "Parse";
 
-    private TextField textField;
+    private UrlTextField textField;
     private TitleTable titleTable;
     private TitleTextLabel titleTextLabel;
     private HtmlParser htmlParser;
 
-    public ParseButton(TextField textField, TitleTextLabel titleTextLabel, TitleTable titleTable, HtmlParser htmlParser) {
+    public ParseButton(UrlTextField textField, TitleTextLabel titleTextLabel, TitleTable titleTable, HtmlParser htmlParser) {
         this.setName(buttonName);
         this.setText(buttonText);
 

@@ -10,16 +10,10 @@ public class TitleTable extends JTable {
     private DefaultTableModel tableModel = new DefaultTableModel();
 
     private String[] columnNames = {"URL", "Title"};
-    private String[][] sampleData = {
-            {"Dodo", "dodopizza.ri"},
-            {"MIS&S", "misis.ru"}
-    };
-
 
     public TitleTable() {
         super();
         this.setName(DEFAULT_NAME);
-        tableModel.setDataVector(sampleData, columnNames);
         this.setModel(tableModel);
         this.setEnabled(false);
         this.setFillsViewportHeight(true);

@@ -14,7 +14,7 @@ public class SceneBuilder {
 
     public static JPanel buildScene() {
 
-        var textField = new TextField();
+        var textField = new UrlTextField();
         var urlLabel = new UrlLabel();
         var titleLabel = new TitleLabel();
         var titleTextLabel = new TitleTextLabel();
