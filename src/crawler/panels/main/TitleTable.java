@@ -5,9 +5,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class TitleTable extends JTable {
 
+    private static final String DEFAULT_NAME = "TitlesTable";
+
     private DefaultTableModel tableModel = new DefaultTableModel();
 
-    private String[] columnNames = {"Title", "URL"};
+    private String[] columnNames = {"URL", "Title"};
     private String[][] sampleData = {
             {"Dodo", "dodopizza.ri"},
             {"MIS&S", "misis.ru"}
@@ -16,8 +18,10 @@ public class TitleTable extends JTable {
 
     public TitleTable() {
         super();
+        this.setName(DEFAULT_NAME);
         tableModel.setDataVector(sampleData, columnNames);
         this.setModel(tableModel);
+        this.setEnabled(false);
         this.setFillsViewportHeight(true);
     }
 

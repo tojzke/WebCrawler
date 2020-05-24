@@ -38,7 +38,7 @@ public class HtmlParser {
             var linkHref = link.attr("href");
             linkHref = proccessLink(linkHref, baseUrl);
             var linkTitle = link.attr("title");
-            var linkAndTitle = List.of(linkTitle, linkHref);
+            var linkAndTitle = List.of(linkHref, linkTitle);
             linksAndTitles.add(linkAndTitle);
         }
         return listTo2dArray(linksAndTitles);
@@ -46,13 +46,14 @@ public class HtmlParser {
 
     private String proccessLink(String linkHref, String baseUrl) {
 
-
         if (absolutePattern.matcher(linkHref).matches()) {
             return linkHref;
-        } else if (relativePattern.matcher(linkHref).matches()) {
-            return baseUrl.replaceAll("/.*$", "");
+        } else if (!linkHref.contains("/")) { // relative link
+            var cutTo = baseUrl.lastIndexOf("/") + 1;
+            return baseUrl.substring(0, cutTo) + linkHref;
+        } else { // without protocol
+            return "https:" + linkHref;
         }
-        return linkHref;
     }
 
     private  String[][] listTo2dArray(List<List<String>> list) {
