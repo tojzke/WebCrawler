@@ -22,8 +22,7 @@ public class TitleTable extends JTable {
 
     public void updateTableData(String[][] data) {
         tableModel.setDataVector(data, columnNames);
-        System.out.println("Updated table:");
-        System.out.println(Arrays.deepToString(data));
+        System.out.println("Data table updated...");
     }
 
 }

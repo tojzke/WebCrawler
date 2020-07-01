@@ -49,8 +49,9 @@ public class HtmlParser {
             try {
                 linkHref = proccessLink(linkHref, baseUrl);
                 var linkTitle = link.attr("title");
-//                var linkAndTitle = List.of(linkHref, parseTitleInUrl(linkHref));
-                var linkAndTitle = List.of(linkHref, linkTitle);
+                var linkAndTitle = List.of(linkHref, parseTitleInUrl(linkHref));
+//                var linkAndTitle = List.of(linkHref, linkTitle);
+                System.out.printf("Adding %s to results...\n", linkAndTitle);
                 linksAndTitles.add(linkAndTitle);
             } catch (Exception e) {
                 System.out.println("Not valid ref: " + linkHref);
