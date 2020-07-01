@@ -39,7 +39,7 @@ public class ParseButton extends JButton {
             final String url = textField.getText();
             try {
                 final var urlConnection = new URL(url).openConnection();
-                if (!urlConnection.getContentType().equals("text/html")) {
+                if (!urlConnection.getContentType().contains("text/html")) {
                     throw new IllegalStateException("Can't parse not html content");
                 }
                 final InputStream inputStream = urlConnection.getInputStream();
@@ -59,7 +59,6 @@ public class ParseButton extends JButton {
 
             } catch (IOException e) {
                 System.out.println("Can't read from url");
-
                 e.printStackTrace();
             } catch (Exception e) {
                 System.out.println(e.getMessage());

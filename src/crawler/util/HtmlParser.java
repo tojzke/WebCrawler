@@ -49,11 +49,11 @@ public class HtmlParser {
             try {
                 linkHref = proccessLink(linkHref, baseUrl);
                 var linkTitle = link.attr("title");
-                var linkAndTitle = List.of(linkHref, parseTitleInUrl(linkHref));
-//                var linkAndTitle = List.of(linkHref, linkTitle);
+//                var linkAndTitle = List.of(linkHref, parseTitleInUrl(linkHref));
+                var linkAndTitle = List.of(linkHref, linkTitle);
                 linksAndTitles.add(linkAndTitle);
             } catch (Exception e) {
-                System.out.println("Not valid ref:" + linkHref);
+                System.out.println("Not valid ref: " + linkHref);
             }
 
         }
@@ -99,10 +99,7 @@ public class HtmlParser {
     private boolean checkLink(String resultedLink) {
         try {
             final var urlConnection = new URL(resultedLink).openConnection();
-            if (!urlConnection.getContentType().equals("text/html")) {
-                return false;
-            }
-            return true;
+            return urlConnection.getContentType().contains("text/html");
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return false;
