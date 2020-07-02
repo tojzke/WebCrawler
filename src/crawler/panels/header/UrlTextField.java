@@ -1,6 +1,9 @@
 package crawler.panels.header;
 
+import crawler.panels.SizeConstants;
+
 import javax.swing.*;
+import java.awt.*;
 
 public class UrlTextField extends JTextField {
 
@@ -8,6 +11,7 @@ public class UrlTextField extends JTextField {
 
     public UrlTextField() {
         this.setName(DEFAULT_COMPONENT_NAME);
+        this.setPreferredSize(new Dimension(SizeConstants.DEFAULT_LABEL_WIDTH, SizeConstants.ROW_HEIGHT));
         this.setEnabled(true);
         this.setEditable(true);
     }

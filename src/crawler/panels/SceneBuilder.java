@@ -1,11 +1,14 @@
 package crawler.panels;
 
+import crawler.panels.components.WorkersLabel;
+import crawler.panels.components.WorkersTextField;
 import crawler.panels.header.*;
 import crawler.panels.result.*;
 import crawler.util.FileExporter;
 import crawler.util.HtmlParser;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SceneBuilder {
 
@@ -14,6 +17,10 @@ public class SceneBuilder {
 
         var textField = new UrlTextField();
         var urlLabel = new UrlLabel();
+
+        var workersLabel = new WorkersLabel();
+        var workersTextField = new WorkersTextField();
+
         var titleLabel = new TitleLabel();
         var titleTextLabel = new TitleTextLabel();
         var titleTable = new TitleTable();
@@ -22,14 +29,14 @@ public class SceneBuilder {
         JTextField exportTextField = new ExportTextField();
         JButton exportButton = new ExportButton(exportTextField, titleTable, new FileExporter());
 
-        var button = new ParseButton(textField, titleTextLabel, titleTable, new HtmlParser());
-        var headerBottomPanel = new HeaderBottomPanel(titleLabel, titleTextLabel);
-        var headerPanel = new HeaderPanel(textField, urlLabel, button, headerBottomPanel);
         JPanel resultBottomPanel = new ResultBottomPanel(exportLabel, exportTextField, exportButton);
-        JPanel resultPanel = new ResultPanel(titleTable, resultBottomPanel);
+        JButton button = new ParseButton(textField, titleTextLabel, titleTable, new HtmlParser());
 
 
-        return new MainPanel(headerPanel, resultPanel);
+        JPanel urlPanel = new UrlPanel(textField, urlLabel, button);
+        JPanel workersPanel = new WorkersPanel(workersLabel, workersTextField);
+
+        return new MainPanel(urlPanel, workersPanel);
     }
 
 }

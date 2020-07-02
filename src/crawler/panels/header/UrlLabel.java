@@ -1,13 +1,15 @@
 package crawler.panels.header;
 
+import crawler.panels.SizeConstants;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class UrlLabel extends JLabel {
     private static final String DEFAULT_NAME = "TextFieldLabel";
-    private static final String DEFAULT_TEXT = "URL:";
+    private static final String DEFAULT_TEXT = "Start URL:";
 
-    private static final Dimension DEFAULT_SIZE = new Dimension(30, 30);
+    private static final Dimension DEFAULT_SIZE = new Dimension(SizeConstants.DEFAULT_LABEL_WIDTH, 30);
 
     public UrlLabel() {
         this.setName(DEFAULT_NAME);
