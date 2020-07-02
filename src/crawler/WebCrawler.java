@@ -1,18 +1,16 @@
 package crawler;
 
 import crawler.panels.SceneBuilder;
+import crawler.panels.SizeConstants;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 public class WebCrawler extends JFrame {
 
 
-    private static final int HEIGHT = 1024;
-    private static final int WIDTH = 768;
-
     public WebCrawler() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WIDTH, HEIGHT);
+        setSize(SizeConstants.WINDOW_WIDTH, SizeConstants.WINDOW_HEIGHT);
         setTitle("Web crawler");
         add(SceneBuilder.buildScene());
         setVisible(true);
