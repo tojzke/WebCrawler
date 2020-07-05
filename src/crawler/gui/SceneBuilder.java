@@ -1,9 +1,6 @@
 package crawler.gui;
 
-import crawler.gui.header.*;
-import crawler.gui.result.*;
-import crawler.util.FileExporter;
-import crawler.util.HtmlParser;
+import crawler.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +10,9 @@ import java.util.List;
 
 public class SceneBuilder {
 
+    private static final Exporter exporter = new FileExporter();
+    private static final DataStorage dataStorage = new InMemoryDataStorage();
+    private static final HtmlParser htmlParser = new HtmlParser();
 
     public static JPanel buildScene() {
 
@@ -40,17 +40,11 @@ public class SceneBuilder {
         var pagesLabel = ComponentsFactory.createLabel("PagesLabel", "Parsed pages: ");
         var pagesCounterLabel = ComponentsFactory.createLabel("PagesCounterLabel", "0");
 
-
-        var titleLabel = new TitleLabel();
-        var titleTextLabel = new TitleTextLabel();
-        var titleTable = new TitleTable();
-
         var exportLabel = ComponentsFactory.createLabel("ExportLabel", "Export:");
         var exportTextField = ComponentsFactory.createTextField("ExportUrlTextField");
-        var exportButton = new ExportButton(exportTextField, titleTable, new FileExporter());
+        var exportButton = new ExportButton(exportTextField,dataStorage, exporter);
 
-        JPanel resultBottomPanel = new ResultBottomPanel(exportLabel, exportTextField, exportButton);
-        JButton button = new ParseButton(textField, titleTextLabel, titleTable, new HtmlParser());
+        JButton button = new ParseButton(textField, dataStorage,htmlParser);
 
         List<JPanel> panels = new ArrayList<>();
         panels.add(ComponentsFactory.createPanel("UrlPanel", urlLabel, textField, button));

@@ -1,6 +1,6 @@
-package crawler.gui.header;
+package crawler.gui;
 
-import crawler.gui.result.TitleTable;
+import crawler.util.DataStorage;
 import crawler.util.HtmlParser;
 
 import javax.swing.*;
@@ -21,18 +21,16 @@ public class ParseButton extends JButton {
     private final String buttonText = "Parse";
 
     private JTextField textField;
-    private TitleTable titleTable;
-    private TitleTextLabel titleTextLabel;
+    private DataStorage dataStorage;
     private HtmlParser htmlParser;
 
-    public ParseButton(JTextField textField, TitleTextLabel titleTextLabel, TitleTable titleTable, HtmlParser htmlParser) {
+    public ParseButton(JTextField textField, DataStorage dataStorage, HtmlParser htmlParser) {
         this.setName(buttonName);
         this.setText(buttonText);
 
         this.textField = textField;
-        this.titleTable = titleTable;
-        this.titleTextLabel = titleTextLabel;
         this.htmlParser = htmlParser;
+        this.dataStorage = dataStorage;
         this.setPreferredSize(new Dimension(100, 30));
         this.addActionListener(actionEvent -> {
 
@@ -54,8 +52,7 @@ public class ParseButton extends JButton {
 
                 final String siteText = stringBuilder.toString();
                 final String title = htmlParser.parseTitle(siteText);
-                titleTextLabel.setText(title);
-                titleTable.updateTableData(htmlParser.parseLinks(url, title, siteText));
+                htmlParser.parseLinks(url, title, siteText);
 
             } catch (IOException e) {
                 System.out.println("Can't read from url");

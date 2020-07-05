@@ -1,5 +1,7 @@
-package crawler.gui.result;
+package crawler.gui;
 
+import crawler.util.DataStorage;
+import crawler.util.Exporter;
 import crawler.util.FileExporter;
 
 import javax.swing.*;
@@ -14,23 +16,23 @@ public class ExportButton extends JButton {
     private static final Dimension DEFAULT_COMPONENT_SIZE = new Dimension(100, 30);
 
     private JTextField filePathTextField;
-    private JTable titleTable;
-    private FileExporter exporter;
+    private DataStorage dataStorage;
+    private Exporter exporter;
 
-    public ExportButton(JTextField filePathTextField, JTable titleTable, FileExporter exporter) {
+    public ExportButton(JTextField filePathTextField, DataStorage dataStorage, Exporter exporter) {
         this.setName(DEFAULT_COMPONENT_NAME);
         this.setText(DEFAULT_COMPONENT_TEXT);
         this.setSize(DEFAULT_COMPONENT_SIZE);
 
         this.filePathTextField = filePathTextField;
-        this.titleTable = titleTable;
+        this.dataStorage = dataStorage;
         this.exporter = exporter;
+
 
         this.addActionListener(actionEvent -> {
             final String path = filePathTextField.getText();
-            final DefaultTableModel model = (DefaultTableModel)titleTable.getModel();
             try {
-                exporter.exportResult(path, model);
+                exporter.saveResults(path, dataStorage.getParsedPages());
             } catch (IOException e) {
                 System.out.println("Can't export");
                 e.printStackTrace();
