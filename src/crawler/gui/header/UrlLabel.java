@@ -1,6 +1,6 @@
-package crawler.panels.header;
+package crawler.gui.header;
 
-import crawler.panels.SizeConstants;
+import crawler.gui.SizeConstants;
 
 import javax.swing.*;
 import java.awt.*;

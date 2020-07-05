@@ -1,8 +1,7 @@
-package crawler.panels.result;
+package crawler.gui.result;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.Arrays;
 
 public class TitleTable extends JTable {
 

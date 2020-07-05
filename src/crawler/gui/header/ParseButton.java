@@ -1,6 +1,6 @@
-package crawler.panels.header;
+package crawler.gui.header;
 
-import crawler.panels.result.TitleTable;
+import crawler.gui.result.TitleTable;
 import crawler.util.HtmlParser;
 
 import javax.swing.*;
@@ -20,12 +20,12 @@ public class ParseButton extends JButton {
     private final String buttonName = "RunButton";
     private final String buttonText = "Parse";
 
-    private UrlTextField textField;
+    private JTextField textField;
     private TitleTable titleTable;
     private TitleTextLabel titleTextLabel;
     private HtmlParser htmlParser;
 
-    public ParseButton(UrlTextField textField, TitleTextLabel titleTextLabel, TitleTable titleTable, HtmlParser htmlParser) {
+    public ParseButton(JTextField textField, TitleTextLabel titleTextLabel, TitleTable titleTable, HtmlParser htmlParser) {
         this.setName(buttonName);
         this.setText(buttonText);
 

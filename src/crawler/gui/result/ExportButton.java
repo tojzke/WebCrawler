@@ -1,14 +1,11 @@
-package crawler.panels.result;
+package crawler.gui.result;
 
 import crawler.util.FileExporter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class ExportButton extends JButton {
 

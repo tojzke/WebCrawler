@@ -1,4 +1,4 @@
-package crawler.panels.result;
+package crawler.gui.result;
 
 import javax.swing.*;
 

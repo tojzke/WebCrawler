@@ -1,7 +1,6 @@
-package crawler.panels;
+package crawler.gui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class UrlPanel extends JPanel {
 

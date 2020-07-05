@@ -1,7 +1,7 @@
 package crawler;
 
-import crawler.panels.SceneBuilder;
-import crawler.panels.SizeConstants;
+import crawler.gui.SceneBuilder;
+import crawler.gui.SizeConstants;
 
 import javax.swing.JFrame;
 

@@ -1,11 +1,11 @@
-package crawler.panels;
+package crawler.gui;
 
 import javax.swing.*;
 
 public class WorkersPanel extends JPanel {
 
-    JLabel workersLabel;
-    JTextField workersTextField;
+    private JLabel workersLabel;
+    private JTextField workersTextField;
 
     public WorkersPanel(JLabel workersLabel, JTextField workersTextField) {
         this.workersLabel = workersLabel;
