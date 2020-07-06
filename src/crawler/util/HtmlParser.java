@@ -1,5 +1,6 @@
 package crawler.util;
 
+import crawler.HtmlPage;
 import org.jsoup.Jsoup;
 
 import java.io.BufferedReader;
@@ -10,12 +11,13 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.lang.Character.LINE_SEPARATOR;
 
+//TODO: Make it use concurrency
 public class HtmlParser {
 
     private static final String TITLE_REGEX = "(<title>)(.+)(<\\/title>)";
@@ -28,7 +30,6 @@ public class HtmlParser {
     private static final Pattern relativePattern = Pattern.compile("(/?)([\\w.%/-]+)");
 
     public String parseTitle(String siteText) {
-
         var matcher = TITLE_PATTERN.matcher(siteText);
         if (matcher.find()) {
             return matcher.group(2);
@@ -37,28 +38,34 @@ public class HtmlParser {
     }
 
 
-    public String[][] parseLinks(String baseUrl, String title, String siteText) {
-        List<List<String>> linksAndTitles = new ArrayList<>();
-        linksAndTitles.add(List.of(baseUrl, title));
-
-        var doc = Jsoup.parse(siteText);
+    public Future<List<HtmlPage>> startParsing(String baseUrl, int timeoutInSeconds) {
+        var doc = Jsoup.parse(baseUrl);
         var links = doc.getElementsByTag("a");
 
         for (var link : links) {
             var linkHref = link.attr("href");
             try {
-                linkHref = proccessLink(linkHref, baseUrl);
-                var linkTitle = link.attr("title");
+                linkHref = processLink(linkHref, baseUrl);
                 var linkAndTitle = List.of(linkHref, parseTitleInUrl(linkHref));
-//                var linkAndTitle = List.of(linkHref, linkTitle);
                 System.out.printf("Adding %s to results...\n", linkAndTitle);
-                linksAndTitles.add(linkAndTitle);
             } catch (Exception e) {
                 System.out.println("Not valid ref: " + linkHref);
             }
 
         }
-        return listTo2dArray(linksAndTitles);
+        return null;
+    }
+
+    public String getHtmlPageContent(String url) throws IOException {
+        var connection = new URL(url).openConnection();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
+        String nextLine;
+        StringBuilder stringBuilder = new StringBuilder();
+        while ((nextLine = reader.readLine()) != null) {
+            stringBuilder.append(nextLine);
+            stringBuilder.append(LINE_SEPARATOR);
+        }
+        return stringBuilder.toString();
     }
 
     private String parseTitleInUrl(String urlLink) throws IOException {
@@ -78,13 +85,13 @@ public class HtmlParser {
         return "No title";
     }
 
-    private String proccessLink(String linkHref, String baseUrl) throws Exception {
+    private String processLink(String linkHref, String baseUrl) throws Exception {
 
         String resultedLink = linkHref;
 
         if (linkHref.startsWith("http://") || linkHref.startsWith("https://")) {
             resultedLink = linkHref;
-        } else if (linkHref.startsWith("//")){ // without protocol
+        } else if (linkHref.startsWith("//")) { // without protocol
             resultedLink = "https:" + linkHref;
         } else if (relativePattern.matcher(linkHref).matches()) { // relative link
             var cutTo = baseUrl.lastIndexOf("/") + 1;
@@ -108,13 +115,4 @@ public class HtmlParser {
 
     }
 
-    private  String[][] listTo2dArray(List<List<String>> list) {
-        String[][] array = new String[list.size()][];
-
-        int i = 0;
-        for (List<String> nestedList : list) {
-            array[i++] = nestedList.toArray(new String[0]);
-        }
-        return array;
-    }
 }

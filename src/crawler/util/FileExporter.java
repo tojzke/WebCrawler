@@ -12,22 +12,6 @@ import java.util.StringJoiner;
 
 public class FileExporter implements Exporter {
 
-    public void exportResult(String filePath, DefaultTableModel model) throws IOException {
-        var path = Paths.get(filePath);
-
-        var stringBuilder = new StringBuilder();
-
-        var data = model.getDataVector();
-        for (int i = 0; i < data.size(); ++i) {
-            var row = data.get(i);
-            for (int j = 0; j < row.size(); ++j) {
-                stringBuilder.append(row.get(j));
-                stringBuilder.append('\n');
-            }
-        }
-        Files.writeString(path, stringBuilder.toString());
-    }
-
     @Override
     public void saveResults(String path, List<HtmlPage> pages) {
         try {

@@ -8,8 +8,6 @@ public class ComponentsFactory {
     private static final Dimension DEFAULT_LABEL_SIZE = new Dimension(SizeConstants.DEFAULT_LABEL_WIDTH, SizeConstants.ROW_HEIGHT);
     private static final Dimension DEFAULT_TEXT_FIELD_SIZE = new Dimension(SizeConstants.DEFAULT_TEXT_FIELD_WIDTH, SizeConstants.ROW_HEIGHT);
 
-
-
     public static JLabel createLabel(String name, String text) {
         return createLabel(name, text, DEFAULT_LABEL_SIZE);
     }
@@ -60,6 +58,12 @@ public class ComponentsFactory {
         return panel;
     }
 
+    public static JPanel createMainPanel() {
+        JPanel mainPanel = new JPanel();
 
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
+        return mainPanel;
+    }
 }

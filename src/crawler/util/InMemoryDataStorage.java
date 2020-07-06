@@ -3,19 +3,17 @@ package crawler.util;
 import crawler.HtmlPage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-// Thread-safe
+// Should be thread safe
 public class InMemoryDataStorage implements DataStorage {
 
-
-    private List<HtmlPage> parsedPages = new ArrayList<>();
+    private List<HtmlPage> parsedPages = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void saveParsedPages(List<HtmlPage> pages) {
-        synchronized (parsedPages) {
-            parsedPages.addAll(pages);
-        }
+        parsedPages.addAll(pages);
     }
 
     @Override

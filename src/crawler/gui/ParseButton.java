@@ -5,14 +5,12 @@ import crawler.util.HtmlParser;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Map;
+import java.util.concurrent.Future;
 
-public class ParseButton extends JButton {
+public class ParseButton extends JToggleButton {
 
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -20,49 +18,24 @@ public class ParseButton extends JButton {
     private final String buttonName = "RunButton";
     private final String buttonText = "Parse";
 
-    private JTextField textField;
-    private DataStorage dataStorage;
-    private HtmlParser htmlParser;
+    private JPanel mainPanel;
 
-    public ParseButton(JTextField textField, DataStorage dataStorage, HtmlParser htmlParser) {
+    //TODO: Proper parsing
+    public ParseButton(Map<String, Component> components, DataStorage dataStorage, HtmlParser htmlParser) {
         this.setName(buttonName);
         this.setText(buttonText);
 
-        this.textField = textField;
-        this.htmlParser = htmlParser;
-        this.dataStorage = dataStorage;
         this.setPreferredSize(new Dimension(100, 30));
-        this.addActionListener(actionEvent -> {
+        this.addItemListener(itemEvent -> {
 
-            final String url = textField.getText();
-            try {
-                final var urlConnection = new URL(url).openConnection();
-                if (!urlConnection.getContentType().contains("text/html")) {
-                    throw new IllegalStateException("Can't parse not html content");
-                }
-                final InputStream inputStream = urlConnection.getInputStream();
-                final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-                final StringBuilder stringBuilder = new StringBuilder();
+            int state = itemEvent.getStateChange();
+            if (state == ItemEvent.SELECTED) {
+                System.out.println("Selected");
+                String startingUrl = null;
 
-                String nextLine;
-                while ((nextLine = reader.readLine()) != null) {
-                    stringBuilder.append(nextLine);
-                    stringBuilder.append(LINE_SEPARATOR);
-                }
-
-                final String siteText = stringBuilder.toString();
-                final String title = htmlParser.parseTitle(siteText);
-                htmlParser.parseLinks(url, title, siteText);
-
-            } catch (IOException e) {
-                System.out.println("Can't read from url");
-                e.printStackTrace();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } else {
+                System.out.println("Deselected");
             }
-
         });
-
     }
-
 }
