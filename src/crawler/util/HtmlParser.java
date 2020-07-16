@@ -29,7 +29,7 @@ public class HtmlParser {
     private static final Pattern absolutePattern = Pattern.compile("/^([a-z0-9]*:|.{0})\\/\\/.*$/gmi");
     private static final Pattern relativePattern = Pattern.compile("(/?)([\\w.%/-]+)");
 
-    public String parseTitle(String siteText) {
+    private String parseTitle(String siteText) {
         var matcher = TITLE_PATTERN.matcher(siteText);
         if (matcher.find()) {
             return matcher.group(2);
@@ -38,8 +38,25 @@ public class HtmlParser {
     }
 
 
-    public Future<List<HtmlPage>> startParsing(String baseUrl, int timeoutInSeconds) {
-        var doc = Jsoup.parse(baseUrl);
+    /*
+        Test idea:
+            Add every url to waiting queue
+            and make each thread parse this url (via executor service)
+
+            Perhaps should return future, to keep app running
+
+            Executor service should have timeout handling and thread workers restrictions
+     */
+    public List<HtmlPage> startParsing(String baseUrl, int timeoutInSeconds) {
+        String htmlPage = null;
+        try {
+            htmlPage = getHtmlPageContent(baseUrl);
+        } catch (IOException exc) {
+            System.out.println("Can't parse base url!");
+            exc.printStackTrace();
+            return null;
+        }
+        var doc = Jsoup.parse(htmlPage);
         var links = doc.getElementsByTag("a");
 
         for (var link : links) {
