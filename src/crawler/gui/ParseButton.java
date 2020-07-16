@@ -12,17 +12,14 @@ import java.util.concurrent.Future;
 
 public class ParseButton extends JToggleButton {
 
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-
-
-    private final String buttonName = "RunButton";
     private final String buttonText = "Parse";
+
 
     private JPanel mainPanel;
 
     //TODO: Proper parsing
     public ParseButton(Map<String, Component> components, DataStorage dataStorage, HtmlParser htmlParser) {
-        this.setName(buttonName);
+        this.setName(NamingConstants.PARSE_BUTTON);
         this.setText(buttonText);
 
         this.setPreferredSize(new Dimension(100, 30));
@@ -31,8 +28,15 @@ public class ParseButton extends JToggleButton {
             int state = itemEvent.getStateChange();
             if (state == ItemEvent.SELECTED) {
                 System.out.println("Selected");
-                String startingUrl = null;
-
+                Thread testThread = new Thread(() -> {
+                    System.out.println("Loopin...");
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException exc) {
+                        System.out.println("Can't sleep thread!");
+                        exc.printStackTrace();
+                    }
+                });
             } else {
                 System.out.println("Deselected");
             }

@@ -1,10 +1,8 @@
 package crawler;
 
 public class HtmlPage {
-
     private String link;
     private String title;
-
 
     public HtmlPage(String link, String title) {
         this.link = link;

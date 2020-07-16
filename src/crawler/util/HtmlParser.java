@@ -15,13 +15,13 @@ import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static java.lang.Character.LINE_SEPARATOR;
-
 //TODO: Make it use concurrency
 public class HtmlParser {
 
     private static final String TITLE_REGEX = "(<title>)(.+)(<\\/title>)";
     private static final String LINK_REGEX = "<a.+>";
+
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private static final Pattern TITLE_PATTERN = Pattern.compile(TITLE_REGEX);
     private static final Pattern LINK_PATTERN = Pattern.compile(LINK_REGEX);

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ExportButton extends JButton {
 
-    private static final String DEFAULT_COMPONENT_NAME = "ExportButton";
+
     private static final String DEFAULT_COMPONENT_TEXT = "Save";
     private static final Dimension DEFAULT_COMPONENT_SIZE = new Dimension(100, 30);
 
@@ -20,7 +20,7 @@ public class ExportButton extends JButton {
     private Exporter exporter;
 
     public ExportButton(JTextField filePathTextField, DataStorage dataStorage, Exporter exporter) {
-        this.setName(DEFAULT_COMPONENT_NAME);
+        this.setName(NamingConstants.EXPORT_BUTTON);
         this.setText(DEFAULT_COMPONENT_TEXT);
         this.setSize(DEFAULT_COMPONENT_SIZE);
 
